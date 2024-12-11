@@ -13,7 +13,7 @@ def HO():
     #compare (normal) Monte-Carlo method with importance sampling for some variational parameter
     N = 1000
     M = 500
-    lam = 0.6
+    lam = 0.5
 
     #for (normal) MC
     L = 10 #range for normal MC
@@ -28,7 +28,7 @@ def HO():
     energy_IS, sigma_IS, ensemble_energy_avg_IS = evaluate_state(N, M, E_local, psi_gauß, delta, x0, lam)
 
 
-    #monte carlo integration
+    #simple sampling
     energy_MC, sigma_MC, ensemble_energy_avg_MC = mc_integration(N, M, f, x_span)
 
     binwidth = 0.01
@@ -47,9 +47,9 @@ def HO():
 
 
     wcprimary = (78 / 255, 42 / 255, 132 / 255)
-    plt.hist(ensemble_energy_avg_MC, bins=np.arange(min(ensemble_energy_avg_MC), max(ensemble_energy_avg_MC) + binwidth, binwidth), color = "orange", label = "Monte-Carlo method", alpha = alpha)
+    plt.hist(ensemble_energy_avg_MC, bins=np.arange(min(ensemble_energy_avg_MC), max(ensemble_energy_avg_MC) + binwidth, binwidth), color = "orange", label = "Simple sampling", alpha = alpha)
     plt.hist(ensemble_energy_avg_IS, bins=np.arange(min(ensemble_energy_avg_IS), max(ensemble_energy_avg_IS) + binwidth, binwidth), color = wcprimary, label = "Importance sampling", alpha = alpha)
-    plt.title(r"Comparison of the MC-method to importance sampling ($\lambda = {}$)".format(lam))
+    plt.title(r"Comparison of simple sampling to importance sampling ($\lambda = {}$)".format(lam))
     ax = plt.gca()
     ax.set_xlabel(r"$S_{MC}$")
     ax.set_ylabel(r"Distribution $P(S_{MC})$")
